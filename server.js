@@ -14,7 +14,18 @@ mongoose
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: ({ req }) => {
+    let authToken = null
+    try{
+      authToken = req.headers.authorization
+      if(authToken){
+        //find or create user
+      }
+    } catch(err){
+      console.error(`Unable to authenticate user with token ${authToken}`)
+    }
+  }
 });
 
 server.listen().then(({ url }) => {
