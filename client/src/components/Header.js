@@ -19,6 +19,20 @@ const Header = ({ classes }) => {
               G Pins
             </Typography>
           </div>
+          {currentUser && (
+            <div className={classes.grow}>
+              <img
+                className={classes.picture}
+                src={currentUser.picture}
+                alt={currentUser.name}
+              />
+              <Typography variant="h5" color="inherit" noWrap>
+                {currentUser.name}
+              </Typography>
+            </div>
+          )}
+
+          {/* Sign out button */}
         </Toolbar>
       </AppBar>
     </div>
