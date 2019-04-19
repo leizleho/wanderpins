@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 // import Typography from "@material-ui/core/Typography";
 // import DeleteIcon from "@material-ui/icons/DeleteTwoTone";
 import PinIcon from './PinIcon';
+import Blog from './Blog';
 import Context from '../context';
 
 const INITIAL_VIEWPORT = {
@@ -69,7 +70,21 @@ const Map = ({ classes }) => {
             <PinIcon size={40} color="red" />
           </Marker>
         )}
+
+        {/*  Draft Pin */}
+        {state.draft && (
+          <Marker
+            latitude={state.draft.latitude}
+            longitude={state.draft.longitude}
+            offsetLeft={-19}
+            offsetTop={-37}
+          >
+            <PinIcon size={40} color="hotpink" />
+          </Marker>
+        )}
       </ReactMapGl>
+      {/** Blog area to add pin content */}
+      <Blog />
     </div>
   );
 };

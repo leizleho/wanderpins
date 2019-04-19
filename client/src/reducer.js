@@ -24,6 +24,11 @@ export default function reducer(state, { type, payload }) {
           longitude: 0
         }
       };
+    case 'UPDATE_DRAFT_LOCATION':
+      return {
+        ...state,
+        draft: payload
+      };
 
     default:
       return state;
