@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ReactMapGl, { NavigationControl, Marker } from 'react-map-gl';
 import { withStyles } from '@material-ui/core/styles';
 // import Button from "@material-ui/core/Button";
 // import Typography from "@material-ui/core/Typography";
 // import DeleteIcon from "@material-ui/icons/DeleteTwoTone";
 import PinIcon from './PinIcon';
+import Context from '../context';
 
 const INITIAL_VIEWPORT = {
   latitude: 37.7577,
@@ -12,6 +13,7 @@ const INITIAL_VIEWPORT = {
   zoom: 13
 };
 const Map = ({ classes }) => {
+  const { state, dispatch } = useContext(Context);
   const [viewport, setViewPort] = useState(INITIAL_VIEWPORT);
   const [userPosition, setUserPosition] = useState(null);
   useEffect(() => {
@@ -27,7 +29,18 @@ const Map = ({ classes }) => {
       });
     }
   };
+  const handleMapClick = ({ lngLat, leftButton }) => {
+    if (!leftButton) return;
+    if (!state.draft) {
+      dispatch({ type: 'CREATE_DRAFT' });
+    }
 
+    const [longitude, latitude] = lngLat;
+    dispatch({
+      type: 'UPDATE_DRAFT_LOCATION',
+      payload: { longitude, latitude }
+    });
+  };
   return (
     <div className={classes.root}>
       <ReactMapGl
@@ -36,6 +49,7 @@ const Map = ({ classes }) => {
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxApiAccessToken="pk.eyJ1IjoibGl6ZWxsZWhvIiwiYSI6ImNqdW45Z29vNDAxeTY0MW8xMndxZjIxaXIifQ.7tvVo1xIAyzu19scei0AvA"
         onViewportChange={newViewport => setViewPort(newViewport)}
+        onClick={handleMapClick}
         {...viewport}
       >
         {/* Nav Control */}
