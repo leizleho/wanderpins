@@ -2,7 +2,6 @@ const { AuthenticationError } = require('apollo-server');
 const Pin = require('./models/Pin');
 
 const authenticated = next => (root, args, ctx, info) => {
-  console.log('ctx.currentUser', ctx.currentUser);
   if (!ctx.currentUser) {
     throw new AuthenticationError('You must be logged in');
   }
