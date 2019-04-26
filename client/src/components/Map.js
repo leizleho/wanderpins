@@ -5,6 +5,7 @@ import differenceInMinutes from 'date-fns/difference_in_minutes';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/DeleteTwoTone';
+import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 
 import { useClient } from '../client';
 import { GET_PINS_QUERY } from '../graphql/queries';
@@ -27,6 +28,7 @@ const INITIAL_VIEWPORT = {
 };
 const Map = ({ classes }) => {
   const client = useClient();
+  const mobileSize = useMediaQuery('(max-width: 650px)');
   const { state, dispatch } = useContext(Context);
   useEffect(() => {
     getPins();
@@ -87,12 +89,13 @@ const Map = ({ classes }) => {
     setPopup(null);
   };
   return (
-    <div className={classes.root}>
+    <div className={mobileSize ? classes.rootMobile : classes.root}>
       <ReactMapGl
         width="100vw"
         height="calc(100vh - 64px)"
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxApiAccessToken="pk.eyJ1IjoibGl6ZWxsZWhvIiwiYSI6ImNqdW45Z29vNDAxeTY0MW8xMndxZjIxaXIifQ.7tvVo1xIAyzu19scei0AvA"
+        scrollZoom={!mobileSize}
         onViewportChange={newViewport => setViewPort(newViewport)}
         onClick={handleMapClick}
         {...viewport}
