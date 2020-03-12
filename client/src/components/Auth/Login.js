@@ -7,11 +7,13 @@ import Typography from '@material-ui/core/Typography';
 import { BASE_URL } from '../../client';
 import Context from '../../context';
 import { ME_QUERY } from '../../graphql/queries';
+import img from './bg.jpg';
 
 const Login = ({ classes }) => {
   const { dispatch } = useContext(Context);
 
   const onSuccess = async googleUser => {
+    console.log(googleUser);
     try {
       const idToken = googleUser.getAuthResponse().id_token;
       const client = new GraphQLClient(BASE_URL, {
@@ -37,17 +39,17 @@ const Login = ({ classes }) => {
         variant="h3"
         gutterBottom
         noWrap
-        style={{ color: 'rgb(66, 133, 244)' }}
+        style={{ color: 'white' }}
       >
-        Welcome
+        W A N D E R P I N S
       </Typography>
       <GoogleLogin
-        clientId="469506815791-rdt88l1ke8515555en9glb252k0oaaao.apps.googleusercontent.com"
+        clientId="181362955473-5bth09iqha6g9c4je61s413o0pbpbg03.apps.googleusercontent.com"
         onSuccess={onSuccess}
         onFailure={onFailure}
         isSignedIn={true}
         buttonText="Login with Google"
-        theme="dark"
+        theme="light"
       />
     </div>
   );
@@ -55,6 +57,11 @@ const Login = ({ classes }) => {
 
 const styles = {
   root: {
+    backgroundImage: 'url(' + img + ')',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'top center',
+    backgroundSize: 'cover',
+    backgroundAttachment: 'fixed',
     height: '100vh',
     display: 'flex',
     justifyContent: 'center',

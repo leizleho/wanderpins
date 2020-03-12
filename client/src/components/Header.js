@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import MapIcon from '@material-ui/icons/Map';
+import EditLocationIcon from '@material-ui/icons/EditLocation';
 import Typography from '@material-ui/core/Typography';
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 
@@ -18,7 +18,7 @@ const Header = ({ classes }) => {
       <AppBar position="static">
         <Toolbar>
           <div className={classes.grow}>
-            <MapIcon className={classes.icon} />
+            <EditLocationIcon className={classes.icon} />
             <Typography
               className={mobileSize ? classes.mobile : ''}
               component="h1"
@@ -26,7 +26,7 @@ const Header = ({ classes }) => {
               color="inherit"
               noWrap
             >
-              G Pins
+              WanderPins
             </Typography>
           </div>
           {currentUser && (
@@ -66,7 +66,7 @@ const styles = theme => ({
   },
   icon: {
     marginRight: theme.spacing.unit,
-    color: 'green',
+    color: 'white',
     fontSize: 45
   },
   mobile: {

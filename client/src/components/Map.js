@@ -22,9 +22,9 @@ import Context from '../context';
 import { Subscription } from 'react-apollo';
 
 const INITIAL_VIEWPORT = {
-  latitude: 37.7577,
-  longitude: -122.4376,
-  zoom: 13
+  latitude: 42.944372,
+  longitude: 13.7159,
+  zoom: 5
 };
 const Map = ({ classes }) => {
   const client = useClient();
@@ -81,7 +81,7 @@ const Map = ({ classes }) => {
   const highlightNewPin = pin => {
     const isNewPin =
       differenceInMinutes(Date.now(), Number(pin.createdAt)) <= 30;
-    return isNewPin ? 'limegreen' : 'darkblue';
+    return isNewPin ? 'red' : 'blue';
   };
 
   const handleSelectPin = pin => {
