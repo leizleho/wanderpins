@@ -32,7 +32,7 @@ const CreatePin = ({ classes }) => {
       'https://api.cloudinary.com/v1_1/lzlho/image/upload',
       data
     );
-    return res.data.url;
+    return res.data.secure_url;
   };
 
   const handleSubmit = async event => {
