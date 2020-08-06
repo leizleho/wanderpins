@@ -17,7 +17,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:4000/graphql',
+  uri: 'wss://wanderpin-graphqlserver.herokuapp.com/playground/graphql',
   options: {
     reconnect: true
   }
