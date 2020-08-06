@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import EditLocationIcon from '@material-ui/icons/EditLocation';
 import Typography from '@material-ui/core/Typography';
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Context from '../context';
 import Signout from '../components/Auth/Signout';
@@ -65,7 +65,7 @@ const styles = theme => ({
     alignItems: 'center'
   },
   icon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
     color: 'white',
     fontSize: 45
   },
@@ -75,7 +75,7 @@ const styles = theme => ({
   picture: {
     height: '50px',
     borderRadius: '90%',
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing(2)
   }
 });
 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Context from '../context';
 import NoContent from './Pin/NoContent';

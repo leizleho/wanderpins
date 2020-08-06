@@ -32,7 +32,6 @@ const Root = () => {
   const initialState = useContext(Context);
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  console.log('state', state);
   return (
     <Router>
       <ApolloProvider client={client}>

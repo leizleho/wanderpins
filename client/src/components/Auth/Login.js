@@ -13,7 +13,6 @@ const Login = ({ classes }) => {
   const { dispatch } = useContext(Context);
 
   const onSuccess = async googleUser => {
-    console.log(googleUser);
     try {
       const idToken = googleUser.getAuthResponse().id_token;
       const client = new GraphQLClient(BASE_URL, {

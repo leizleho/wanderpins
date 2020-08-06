@@ -1,5 +1,5 @@
 {
-  "name": "geopins",
+  "name": "wanderpins",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -11,13 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.11.0",
-    "dotenv": "^6.2.0",
-    "google-auth-library": "^3.0.1",
-    "graphql": "^14.6.0",
-    "mongoose": "^5.9.4"
+    "apollo-server": "^2.16.1",
+    "dotenv": "^8.2.0",
+    "google-auth-library": "^6.0.6",
+    "graphql": "^15.3.0",
+    "mongoose": "^5.9.27"
   },
   "devDependencies": {
-    "nodemon": "^1.19.4"
+    "nodemon": "^2.0.4"
   }
 }

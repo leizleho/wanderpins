@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import ReactMapGl, { NavigationControl, Marker, Popup } from 'react-map-gl';
 import { withStyles } from '@material-ui/core/styles';
-import differenceInMinutes from 'date-fns/difference_in_minutes';
+import { differenceInMinutes } from 'date-fns';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/DeleteTwoTone';
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { useClient } from '../client';
 import { GET_PINS_QUERY } from '../graphql/queries';
@@ -30,15 +30,31 @@ const Map = ({ classes }) => {
   const client = useClient();
   const mobileSize = useMediaQuery('(max-width: 650px)');
   const { state, dispatch } = useContext(Context);
+
+  const getPins = useCallback(async () => {
+    const { getPins } = await client.request(GET_PINS_QUERY);
+    dispatch({ type: 'GET_PINS', payload: getPins });
+  }, [client, dispatch]);
+
   useEffect(() => {
     getPins();
-  }, []);
+  }, [getPins]);
 
   const [viewport, setViewPort] = useState(INITIAL_VIEWPORT);
   const [userPosition, setUserPosition] = useState(null);
+
   useEffect(() => {
+    function getUserPosition() {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const { latitude, longitude } = position.coords;
+          setViewPort({ ...viewport, latitude, longitude });
+          setUserPosition({ latitude, longitude });
+        });
+      }
+    };
     getUserPosition();
-  }, []);
+  }, [viewport]);
 
   const [popup, setPopup] = useState(null);
   //remove popup if pin itself is deleted by the author of the pin
@@ -48,22 +64,11 @@ const Map = ({ classes }) => {
     if (!pinExists) {
       setPopup(null);
     }
-  }, [state.pins.length]);
+  }, [popup, state.pins]);
 
-  const getUserPosition = () => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const { latitude, longitude } = position.coords;
-        setViewPort({ ...viewport, latitude, longitude });
-        setUserPosition({ latitude, longitude });
-      });
-    }
-  };
 
-  const getPins = async () => {
-    const { getPins } = await client.request(GET_PINS_QUERY);
-    dispatch({ type: 'GET_PINS', payload: getPins });
-  };
+
+
 
   const handleMapClick = ({ lngLat, leftButton }) => {
     if (!leftButton) return;
